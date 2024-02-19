@@ -8,6 +8,7 @@ import (
 	_ "embed"
 
 	"github.com/oschwald/geoip2-golang"
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/zasdaym/zmono/internal/config"
 	"github.com/zasdaym/zmono/internal/http"
@@ -30,6 +31,9 @@ func main() {
 
 func run(ctx context.Context) error {
 	cfg := config.Load()
+	if cfg.Debug {
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
+	}
 
 	geoipCityDB, err := geoip2.FromBytes(geoipCityDBBytes)
 	if err != nil {

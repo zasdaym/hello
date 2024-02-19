@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	"net"
 	"net/http"
 
@@ -10,11 +9,13 @@ import (
 
 func geoipHandler(cityDB *geoip2.Reader, ispDB *geoip2.Reader) http.HandlerFunc {
 	type response struct {
-		ASN          string `json:"asn"`
-		City         string `json:"city"`
-		Country      string `json:"country"`
-		ISP          string `json:"isp"`
-		Organization string `json:"organization"`
+		ASN          uint    `json:"asn"`
+		City         string  `json:"city"`
+		Country      string  `json:"country"`
+		ISP          string  `json:"isp"`
+		Latitude     float64 `json:"latitude"`
+		Longitude    float64 `json:"Longitude"`
+		Organization string  `json:"organization"`
 	}
 	return func(w http.ResponseWriter, r *http.Request) {
 		ip := net.ParseIP(r.PathValue("ip"))
@@ -35,12 +36,15 @@ func geoipHandler(cityDB *geoip2.Reader, ispDB *geoip2.Reader) http.HandlerFunc 
 			return
 		}
 
-		respondJSON(w, response{
-			ASN:          fmt.Sprint(isp.AutonomousSystemNumber),
+		resp := response{
+			ASN:          isp.AutonomousSystemNumber,
 			City:         city.City.Names["en"],
 			Country:      city.Country.Names["en"],
 			ISP:          isp.ISP,
+			Latitude:     city.Location.Latitude,
+			Longitude:    city.Location.Longitude,
 			Organization: isp.AutonomousSystemOrganization,
-		})
+		}
+		respondJSON(w, resp)
 	}
 }

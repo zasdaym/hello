@@ -3,7 +3,7 @@ WORKDIR /app
 COPY go.mod go.sum .
 RUN go mod download
 COPY GeoIP2-City.mmdb GeoIP2-ISP.mmdb .
-COPY main.go .
+COPY *.go .
 COPY internal internal
 RUN go build .
 

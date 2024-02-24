@@ -17,6 +17,7 @@ func geoipHandler(cityDB *geoip2.Reader, ispDB *geoip2.Reader) http.HandlerFunc 
 		Longitude    float64 `json:"Longitude"`
 		Organization string  `json:"organization"`
 	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		ip := net.ParseIP(r.PathValue("ip"))
 		if ip == nil {

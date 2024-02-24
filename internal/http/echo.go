@@ -10,6 +10,7 @@ func echoHandler() http.HandlerFunc {
 		Headers map[string]string `json:"headers"`
 		Path    string
 	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		headers := make(map[string]string)
 		for k, v := range r.Header {

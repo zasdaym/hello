@@ -10,7 +10,8 @@ import (
 
 func Handler(geoipCityDB *geoip2.Reader, geoipISPDB *geoip2.Reader) http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /echo", echoHandler())
+	mux.HandleFunc("GET /bmi", bmiHandler())
+	mux.HandleFunc("/echo", echoHandler())
 	mux.HandleFunc("GET /geoip/{ip}", geoipHandler(geoipCityDB, geoipISPDB))
 	mux.HandleFunc("GET /health", healthHandler())
 	return mux

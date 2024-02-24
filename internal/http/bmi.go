@@ -7,8 +7,8 @@ import (
 
 func bmiHandler() http.HandlerFunc {
 	type response struct {
-		BMI     float64
-		Verdict string
+		BMI     float64 `json:"bmi"`
+		Verdict string  `json:"verdict"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

@@ -8,7 +8,7 @@ import (
 func echoHandler() http.HandlerFunc {
 	type response struct {
 		Headers map[string]string `json:"headers"`
-		Path    string
+		Path    string            `json:"path"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {

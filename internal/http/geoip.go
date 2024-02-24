@@ -14,7 +14,7 @@ func geoipHandler(cityDB *geoip2.Reader, ispDB *geoip2.Reader) http.HandlerFunc 
 		Country      string  `json:"country"`
 		ISP          string  `json:"isp"`
 		Latitude     float64 `json:"latitude"`
-		Longitude    float64 `json:"Longitude"`
+		Longitude    float64 `json:"longitude"`
 		Organization string  `json:"organization"`
 	}
 
